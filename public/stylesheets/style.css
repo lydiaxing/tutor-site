@@ -1,8 +1,77 @@
+html {
+  height: 100%;
+}
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+}
+
+.page-section {
+  height: 100%
 }
 
 a {
   color: #00B7FF;
+}
+
+nav {
+  position: absolute;
+  height: 10%;
+}
+
+.nav-item {
+  margin: 0 .75em;
+}
+
+.jumbotron {
+  margin: 0 !important;
+}
+
+.splash-img {
+  height: 90%;
+}
+
+#about {
+  background-color: white;
+  height: 100%;
+}
+
+#pricing {
+}
+
+@media (max-width: 950px) {
+  .card-deck {
+    display: block;
+    width: 100%;
+    margin-bottom: .75rem;
+  }
+  .card-deck .card {
+    margin-bottom: .75rem;
+  }
+}
+
+.auth-form {
+  max-width: 20em;
+  margin: auto;
+  padding: 3em 0;
+  height: 80%;
+}
+
+.footer {
+  height: 10%;
+  padding-top: 1em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer-links a {
+  padding: 0 1em;
+}
+
+.copyright {
+  font-size: .75em;
+}
+
+hr {
+  margin-bottom: 0em;
 }
