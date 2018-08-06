@@ -5,15 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var passport = require('passport');
-var session = require('express-session');
-var LocalStrategy = require('passport-local').Strategy;
-
 var routes = require('./routes/index');
-var auth = require('./routes/auth');
-
-var models = require('./models/models');
-var User = models.User;
 
 var app = express();
 
@@ -29,47 +21,6 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({
-  secret: process.env.SECRET
-}));
-
-passport.serializeUser(function(user, done) {
-  done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-passport.use(new LocalStrategy(function(email, password, done) {
-  console.log('local strategy is getting called', email, password)
-  User.findOne({
-    email: email
-  }, function(err, user) {
-    if (err) {
-      console.log(err);
-      return done(err);
-    }
-
-    if (!user) {
-      console.log('no user', user);
-      return done(null, false);
-    }
-
-    if (user.password !== password) {
-      return done(null, false);
-    }
-
-    return done(null, user);
-  })
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use('/', auth(passport));
 app.use('/', routes);
 
 // catch 404 and forward to error handler

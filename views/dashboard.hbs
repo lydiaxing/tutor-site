@@ -1,0 +1,28 @@
+<div class="jumbotron jumbotron-fluid" id="payment">
+  <div class="container text-center">
+    <h1>Make A Payment</h1>
+    <form action="/checkout" method="POST">
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="{{PUBLISHABLE_KEY}}" data-amount="${{amount}}" data-name="Demo Site" data-zip-code="true" data-description="Widget" data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+        data-locale="auto">
+      </script>
+    </form>
+
+    <script>
+      (function() {
+        var qs, js, q, s, d = document,
+          gi = d.getElementById,
+          ce = d.createElement,
+          gt = d.getElementsByTagName,
+          id = "typef_orm_share",
+          b = "https://embed.typeform.com/";
+        if (!gi.call(d, id)) {
+          js = ce.call(d, "script");
+          js.id = id;
+          js.src = b + "embed.js";
+          q = gt.call(d, "script")[0];
+          q.parentNode.insertBefore(js, q)
+        }
+      })()
+    </script>
+  </div>
+</div>

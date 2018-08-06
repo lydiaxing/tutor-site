@@ -14,9 +14,18 @@ a {
   color: #00B7FF;
 }
 
+@media min-width(950px) {
+  nav {
+    height: 10%;
+  }
+}
+
+.navbar-brand {
+  margin: 0;
+}
+
 nav {
   position: absolute;
-  height: 10%;
 }
 
 .nav-item {
@@ -25,18 +34,25 @@ nav {
 
 .jumbotron {
   margin: 0 !important;
+  min-height: 20em;
 }
 
 .splash-img {
   height: 90%;
 }
 
+#payment {
+  height: 77%;
+}
+
 #about {
   background-color: white;
   height: 100%;
+  overflow: auto;
 }
 
-#pricing {
+#others {
+  background-color: white;
 }
 
 @media (max-width: 950px) {
@@ -66,6 +82,10 @@ nav {
 
 .footer-links a {
   padding: 0 1em;
+}
+
+.footer-links i {
+  padding: 0 .5em;
 }
 
 .copyright {
