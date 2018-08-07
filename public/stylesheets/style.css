@@ -6,8 +6,17 @@ body {
   height: 100%;
 }
 
+.even-section {
+  background-color: #a9bcd0;
+}
+
+.odd-section {
+  background-color: white;
+}
+
 .page-section {
-  height: 100%
+  height: auto;
+  min-height: 100% !important;
 }
 
 a {
@@ -26,6 +35,7 @@ a {
 
 nav {
   position: absolute;
+  background-color: #373f51;
 }
 
 .nav-item {
@@ -41,18 +51,8 @@ nav {
   height: 90%;
 }
 
-#payment {
-  height: 77%;
-}
-
 #about {
-  background-color: white;
-  height: 100%;
   overflow: auto;
-}
-
-#others {
-  background-color: white;
 }
 
 @media (max-width: 950px) {
@@ -73,15 +73,36 @@ nav {
   height: 80%;
 }
 
+@media (max-width: 950px) {
+  .footer .container {
+    flex-direction: column;
+  }
+}
+
 .footer {
-  height: 10%;
+  background-color: #373f51;
+  color: white;
+  height: auto;
   padding-top: 1em;
+  padding-bottom: .5em;
+  margin: 0;
+  max-width: 100%;
+  padding-left: .5em;
+  padding-right: .5em;
+}
+
+.footer .container {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.footer-links {
+  display: inline-block;
 }
 
 .footer-links a {
   padding: 0 1em;
+  color: white;
 }
 
 .footer-links i {
@@ -90,6 +111,11 @@ nav {
 
 .copyright {
   font-size: .75em;
+  display: inline-block;
+}
+
+.copyright a {
+  color: #6c757d;
 }
 
 hr {
