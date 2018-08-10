@@ -110,8 +110,8 @@ nav {
   color: white;
 }
 
-.footer-links i {
-  padding: 0 .5em;
+.sharethis-inline-share-buttons {
+  display: inline-block !important;
 }
 
 .copyright {
