@@ -27,7 +27,7 @@ passport.use(new LocalStrategy(function(username, password, done) {
       console.log(user);
       return done(null, false);
     }
-    
+
     // if passwords do not match, auth failed
     bcrypt.compare(password, user.password, function(err, res) {
       if (!res) {

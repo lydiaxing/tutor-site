@@ -6,7 +6,20 @@ var models = require('../models/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  models.Content.findOne({}, function(err, content) {
+    res.render('index', {
+      nav: content.nav,
+      splashBig: content.splashBig,
+      splashSmall: content.splashSmall,
+      about: content.about,
+      free: content.free,
+      other: content.other,
+      beginner: content.beginner,
+      intermediate: content.intermediate,
+      adv: content.adv,
+      why: content.why
+    });
+  });
 });
 
 router.get('/dashboard', function(req, res) {
@@ -38,19 +51,15 @@ router.post('/admin', function(req, res) {
       adv: req.body.advDesc,
       why: req.body.whyDesc
     });
-
     res.save();
   });
-
-  res.redirect('back');
+  res.redirect('/admin');
 });
 
 router.get('/admin', function(req, res) {
   if (req.user) {
     models.Content.findOne({}, function(err, content) {
-      res.render('admin', {
-        content: content
-      });
+      res.render('admin', {content: content});
     });
   } else {
     res.redirect('/login');
