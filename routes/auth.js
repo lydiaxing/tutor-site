@@ -7,7 +7,11 @@ module.exports = function(passport) {
     if (req.user) {
       res.redirect('/admin');
     } else {
-      res.render('login');
+      models.Content.getContent(function(err, content) {
+        res.render('login', {
+          content: content
+        })
+      });
     }
   });
 

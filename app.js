@@ -17,10 +17,14 @@ passport.use(new LocalStrategy(function(username, password, done) {
   if(!username || !password) {
     return done(null, false);
   }
-  
+
   models.User.findOne({
     username: username
   }, function(err, user) {
+    if(!user) {
+      return done(null, false);
+    }
+    
     bcrypt.compare(password, user.password, function(err, res) {
       if (res) {
         return done(null, user);

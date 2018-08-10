@@ -57,6 +57,10 @@ var contentSchema = new mongoose.Schema({
   }
 });
 
+contentSchema.statics.getContent = function(cb) {
+  return this.model('Content').findOne({}, cb);
+}
+
 var User = mongoose.model('User', userSchema);
 var Content = mongoose.model('Content', contentSchema);
 

@@ -6,18 +6,9 @@ var models = require('../models/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  models.Content.findOne({}, function(err, content) {
+  models.Content.getContent(function(err, content) {
     res.render('index', {
-      nav: content.nav,
-      splashBig: content.splashBig,
-      splashSmall: content.splashSmall,
-      about: content.about,
-      free: content.free,
-      other: content.other,
-      beginner: content.beginner,
-      intermediate: content.intermediate,
-      adv: content.adv,
-      why: content.why
+      content: content
     });
   });
 });
@@ -38,7 +29,7 @@ router.post('/checkout', function(req, res) {
 });
 
 router.post('/admin', function(req, res) {
-  models.Content.findOne({}, function(err, res) {
+  models.Content.getContent(function(err, content) {
     res.set({
       nav: req.body.nav,
       splashBig: req.body.splashBig,
@@ -52,13 +43,15 @@ router.post('/admin', function(req, res) {
       why: req.body.whyDesc
     });
     res.save();
+    res.redirect('/admin', {
+      content: content
+    });
   });
-  res.redirect('/admin');
 });
 
 router.get('/admin', function(req, res) {
   if (req.user) {
-    models.Content.findOne({}, function(err, content) {
+    models.Content.getContent(function(err, content) {
       res.render('admin', {content: content});
     });
   } else {
