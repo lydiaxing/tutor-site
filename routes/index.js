@@ -3,13 +3,12 @@ var router = express.Router();
 var stripePackage = require('stripe');
 const stripe = stripePackage(process.env.SECRET_KEY);
 var models = require('../models/models');
+var nl2br = require('nl2br');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   models.Content.getContent(function(err, content) {
-    res.render('index', {
-      content: content
-    });
+    res.render('index', {content: content});
   });
 });
 
@@ -30,7 +29,8 @@ router.post('/checkout', function(req, res) {
 
 router.post('/admin', function(req, res) {
   models.Content.getContent(function(err, content) {
-    res.set({
+    console.log(nl2br(content));
+    content.set({
       nav: req.body.nav,
       splashBig: req.body.splashBig,
       splashSmall: req.body.splashSubheader,
@@ -42,10 +42,8 @@ router.post('/admin', function(req, res) {
       adv: req.body.advDesc,
       why: req.body.whyDesc
     });
-    res.save();
-    res.redirect('/admin', {
-      content: content
-    });
+    content.save();
+    res.redirect('/admin');
   });
 });
 
