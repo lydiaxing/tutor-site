@@ -13,40 +13,38 @@ var auth = require('./routes/auth');
 var models = require('./models/models');
 
 //setup passport
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    models.User.findOne({ username: username }, function (err, user) {
-      // if there's an error, finish trying to authenticate (auth failed)
-      if (err) {
-        console.log(err);
-        return done(err);
-      }
-      // if no user present, auth failed
-      if (!user) {
-        console.log(user);
+passport.use(new LocalStrategy(function(username, password, done) {
+  models.User.findOne({
+    username: username
+  }, function(err, user) {
+    // if there's an error, finish trying to authenticate (auth failed)
+    if (err) {
+      console.log(err);
+      return done(err);
+    }
+    // if no user present, auth failed
+    if (!user) {
+      console.log(user);
+      return done(null, false);
+    }
+    
+    // if passwords do not match, auth failed
+    bcrypt.compare(password, user.password, function(err, res) {
+      if (!res) {
         return done(null, false);
       }
-
-      const saltRounds = 10;
-
-      // if passwords do not match, auth failed
-      bcrypt.compare(password, user.password, function(err, res) {
-        if(!res) {
-          return done(null.false);
-        }
-      });
-      // auth has has succeeded
-      return done(null, user);
     });
-  }
-));
+    // auth has has succeeded
+    return done(null, user);
+  });
+}));
 
 passport.serializeUser(function(user, done) {
   done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  models.User.findById(id, function (err, user) {
+  models.User.findById(id, function(err, user) {
     done(err, user);
   });
 });
@@ -61,8 +59,8 @@ app.use(logger('dev'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(session({ secret: process.env.SECRET }));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(session({secret: process.env.SECRET}));
+app.use(bodyParser.urlencoded({extended: false}));
 
 //initialize passport
 app.use(passport.initialize());
@@ -80,7 +78,9 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+  res.locals.error = req.app.get('env') === 'development'
+    ? err
+    : {};
 
   // render the error page
   res.status(err.status || 500);

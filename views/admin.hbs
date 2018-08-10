@@ -1,57 +1,51 @@
-<div class="container">
-  <h1>Edit site content</h1>
-  <div class="form-group">
-    <label>Navigation bar header</label>
-    <input type="text" id="nav" placeholder="Navigation bar header">
+<div class="container admin-form">
+  <div class="admin-header">
+    <h1>Edit Site Content</h1>
+    <a href="/logout">Logout</a>
   </div>
-  <div class="form-group">
-    <label>Splash big text</label>
-    <input type="text" id="splashBig" placeholder="Splash image main text">
-  </div>
-  <div class="form-group">
-    <label>Splash small text</label>
-    <input type="text" id="splashSubheader" placeholder="Splash image subheader">
-  </div>
-  <form>
+  <form method="post">
+    <div class="form-group">
+      <label>Navigation bar header</label>
+      <input type="text" id="nav" class="form-control" value="{{content.nav}}">
+    </div>
+    <div class="form-group">
+      <label>Splash big text</label>
+      <input type="text" id="splashBig" class="form-control" value="{{content.splashBig}}">
+    </div>
+    <div class="form-group">
+      <label>Splash small text</label>
+      <input type="text" id="splashSubheader" class="form-control" value="{{content.splashSmall}}">
+    </div>
     <div class="form-group">
       <label>About text</label>
-      <textarea id="about" rows="3"></textarea>
+      <textarea id="about" class="form-control" rows="6">{{content.about}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
       <label>Free Assessment and Online Consultation text</label>
-      <textarea id="assessment" rows="3"></textarea>
+      <textarea id="assessment" class="form-control" rows="6">{{content.free}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
-      <label>Other services text</label>
-      <textarea id="others" rows="3"></textarea>
+      <label>Other Services text</label>
+      <textarea id="others" class="form-control" rows="6">{{content.other}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
       <label>Pricing beginner description</label>
-      <textarea id="beginnerDesc" rows="3"></textarea>
+      <textarea id="beginnerDesc" class="form-control" rows="6">{{content.beginner}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
       <label>Pricing intermediate description</label>
-      <textarea id="intermediateDesc" rows="3"></textarea>
+      <textarea id="intermediateDesc" class="form-control" rows="6">{{content.intermediate}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
       <label>Pricing advanced description</label>
-      <textarea id="advDesc" rows="3"></textarea>
+      <textarea id="advDesc" class="form-control" rows="6">{{content.adv}}</textarea>
     </div>
-  </form>
-  <form>
     <div class="form-group">
-      <label>Why learn Chinese With Me text</label>
-      <textarea id="whyDesc" rows="3"></textarea>
+      <label>Why Learn Chinese With Me text</label>
+      <textarea id="whyDesc" class="form-control" rows="6">{{content.why}}</textarea>
+    </div>
+    <div class="right">
+      <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </form>
 </div>
