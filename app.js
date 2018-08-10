@@ -6,6 +6,7 @@ var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy;
 var session = require("express-session")
 var bodyParser = require("body-parser");
+var bcrypt = require('bcrypt');
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
@@ -25,10 +26,15 @@ passport.use(new LocalStrategy(
         console.log(user);
         return done(null, false);
       }
+
+      const saltRounds = 10;
+
       // if passwords do not match, auth failed
-      if (user.password !== password) {
-        return done(null, false);
-      }
+      bcrypt.compare(password, user.password, function(err, res) {
+        if(!res) {
+          return done(null.false);
+        }
+      });
       // auth has has succeeded
       return done(null, user);
     });
