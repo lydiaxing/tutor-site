@@ -29,18 +29,17 @@ router.post('/checkout', function(req, res) {
 
 router.post('/admin', function(req, res) {
   models.Content.getContent(function(err, content) {
-    console.log(nl2br(content));
     content.set({
       nav: req.body.nav,
       splashBig: req.body.splashBig,
       splashSmall: req.body.splashSubheader,
-      about: req.body.about,
-      free: req.body.assessment,
-      other: req.body.others,
-      beginner: req.body.beginnerDesc,
-      intermediate: req.body.intermediateDesc,
-      adv: req.body.advDesc,
-      why: req.body.whyDesc
+      about: nl2br(req.body.about, false),
+      free: nl2br(req.body.assessment, false),
+      other: nl2br(req.body.others, false),
+      beginner: nl2br(req.body.beginnerDesc, false),
+      intermediate: nl2br(req.body.intermediateDesc, false),
+      adv: nl2br(req.body.advDesc, false),
+      why: nl2br(req.body.whyDesc, false)
     });
     content.save();
     res.redirect('/admin');
@@ -50,6 +49,15 @@ router.post('/admin', function(req, res) {
 router.get('/admin', function(req, res) {
   if (req.user) {
     models.Content.getContent(function(err, content) {
+      content.set({
+        about: content.about.replace(/<br>/g, ''),
+        free: content.free.replace(/<br>/g, ''),
+        other: content.other.replace(/<br>/g, ''),
+        beginner: content.beginner.replace(/<br>/g, ''),
+        intermediate: content.intermediate.replace(/<br>/g, ''),
+        adv: content.adv.replace(/<br>/g, ''),
+        why: content.why.replace(/<br>/g, '')
+      });
       res.render('admin', {content: content});
     });
   } else {
