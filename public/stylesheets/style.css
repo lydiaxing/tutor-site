@@ -66,8 +66,8 @@ hr {
 /* nav header styling */
 
 @media min-width(950px) {
-  nav {
-    height: 10%;
+  .navbar-brand {
+    font-size: 0;
   }
 }
 
