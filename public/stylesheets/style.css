@@ -48,6 +48,10 @@ hr {
   color: white;
 }
 
+.lead {
+  font-size: 1.5em;
+}
+
 #about {
   overflow: auto;
 }
