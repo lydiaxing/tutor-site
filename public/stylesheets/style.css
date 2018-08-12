@@ -58,6 +58,7 @@ hr {
 
 #face {
   margin-left: 1em;
+  max-width: 10em;
 }
 
 @media (max-width: 950px) {
