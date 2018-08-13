@@ -33,6 +33,7 @@ router.post('/admin', function(req, res) {
       nav: req.body.nav,
       splashBig: req.body.splashBig,
       splashSmall: req.body.splashSubheader,
+      questions: nl2br(req.body.questions, false),
       about: nl2br(req.body.about, false),
       free: nl2br(req.body.assessment, false),
       other: nl2br(req.body.others, false),
@@ -50,6 +51,7 @@ router.get('/admin', function(req, res) {
   if (req.user) {
     models.Content.getContent(function(err, content) {
       content.set({
+        questions: content.questions.replace(/<br>/g, ''),
         about: content.about.replace(/<br>/g, ''),
         free: content.free.replace(/<br>/g, ''),
         other: content.other.replace(/<br>/g, ''),
@@ -63,6 +65,10 @@ router.get('/admin', function(req, res) {
   } else {
     res.redirect('/login');
   }
+});
+
+router.get('/contact', function(req, res) {
+  res.render('contact');
 });
 
 module.exports = router;

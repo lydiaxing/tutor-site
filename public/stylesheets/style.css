@@ -195,3 +195,13 @@ nav {
 .login-form button {
   width: 100%;
 }
+
+/* contact page stying */
+.contact-form {
+  padding: 1em;
+  max-width: 40em;
+}
+
+.contact-form button {
+  width: 100%;
+}
