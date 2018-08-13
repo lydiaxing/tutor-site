@@ -74,9 +74,9 @@ hr {
 
 /* nav header styling */
 
-@media min-width(950px) {
-  nav {
-    height: 10%;
+@media (max-width: 950px) {
+  .navbar-brand {
+    font-size: 1em !important;
   }
 }
 

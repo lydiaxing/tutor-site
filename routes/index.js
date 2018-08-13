@@ -104,7 +104,7 @@ router.post('/contact', function(req, res) {
     }
   });
   let mailOptions = {
-    to: 'xinglydia@gmail.com',
+    to: 'mandarinforprofessionals@gmail.com',
     subject: req.body.subject,
     text: "message from: " + req.body.name +
           '\n' + "reply email: " + req.body.email +
