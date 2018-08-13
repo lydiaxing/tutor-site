@@ -4,6 +4,8 @@ var stripePackage = require('stripe');
 const stripe = stripePackage(process.env.SECRET_KEY);
 var models = require('../models/models');
 var nl2br = require('nl2br');
+var nodemailer = require('nodemailer');
+var validator = require("email-validator");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -68,7 +70,63 @@ router.get('/admin', function(req, res) {
 });
 
 router.get('/contact', function(req, res) {
-  res.render('contact');
+  models.Content.getContent(function(err, content) {
+    res.render('contact', {content: content});
+  });
+});
+
+router.post('/contact', function(req, res) {
+  if(!req.body.subject || !req.body.name || !req.body.email || !req.body.message) {
+    models.Content.getContent(function(err, content) {
+      res.render('contact', {
+        content: content,
+        error: "Error: All fields are required. Please correct issue(s) and try again."
+      });
+    });
+  }
+
+  if(!validator.validate(req.body.email)) {
+    models.Content.getContent(function(err, content) {
+      res.render('contact', {
+        content: content,
+        error: "Error: Invalid email. Please correct and try again."
+      });
+    });
+  }
+
+  let transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.CRED_USER,
+      pass: process.env.CRED_PASS
+    }
+  });
+  let mailOptions = {
+    to: 'xinglydia@gmail.com',
+    subject: req.body.subject,
+    text: "message from: " + req.body.name +
+          '\n' + "reply email: " + req.body.email +
+          '\n' + "their message: " + req.body.message
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      models.Content.getContent(function(err, content) {
+        res.render('contact', {
+          content: content,
+          error: "Sorry there was an error, please try again."
+        });
+      });
+    }
+    models.Content.getContent(function(err, content) {
+      res.render('contact', {
+        success: "Success! I received your message and will reply as soon as I can to the address " + req.body.email,
+        content: content,
+      });
+    });
+  });
 });
 
 module.exports = router;

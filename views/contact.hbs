@@ -1,10 +1,24 @@
 <div class="container contact-form">
   <h1>Contact</h1>
+  {{#if error}}
+  <div class="alert alert-warning" role="alert">
+    {{error}}
+  </div>
+  {{/if}}
+  {{#if success}}
+  <div class="alert alert-success" role="alert">
+    {{success}}
+  </div>
+  {{/if}}
   <p class="text-muted">Contact me through this form or my email: <a href="mailto:mandarinforprofessionals@gmail.com">mandarinforprofessionals@gmail.com</a></p>
   <form method="post">
     <div class="form-group">
       <label>Name</label>
       <input type="text" class="form-control" name="name" placeholder="Full name">
+    </div>
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" name="email" placeholder="Your email">
     </div>
     <div class="form-group">
       <label>Subject</label>
