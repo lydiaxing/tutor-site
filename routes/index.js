@@ -15,7 +15,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res) {
-  res.render('dashboard', {PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY});
+  models.Content.getContent(function(err, content) {
+    res.render('dashboard', {
+      content: content,
+      PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY,
+      amount: 2883
+    });
+  });
 });
 
 router.post('/checkout', function(req, res) {
@@ -23,7 +29,7 @@ router.post('/checkout', function(req, res) {
 
   stripe.customers.create({email: req.user.username, source: token}).then(function(customer) {
     // YOUR CODE: Save the customer ID and other info in a database for later.
-    return stripe.charges.create({amount: 999, description: 'Example charge', currency: "usd", customer: customer.id});
+    return stripe.charges.create({amount: 4000, description: 'Example charge', currency: "usd", customer: customer.id});
   }).then(function() {
     res.render('dashboard');
   });

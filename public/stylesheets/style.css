@@ -82,6 +82,13 @@ hr {
 
 .navbar-brand {
   margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-brand img {
+  margin-right: .25em;
 }
 
 nav {
@@ -94,6 +101,7 @@ nav {
 }
 
 /* scroll to top */
+
 #scroll-top {
   position: fixed;
   bottom: 2em;
@@ -197,6 +205,7 @@ nav {
 }
 
 /* contact page stying */
+
 .contact-form {
   padding: 1em;
   max-width: 40em;
@@ -204,4 +213,12 @@ nav {
 
 .contact-form button {
   width: 100%;
+}
+
+/* payment page styling */
+.payment-container {
+  padding: 1em;
+  max-width: 40em;
+  height: auto;
+  min-height: 78% !important;
 }
