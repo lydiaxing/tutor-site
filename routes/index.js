@@ -15,11 +15,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res) {
+  console.log(req.body);
   models.Content.getContent(function(err, content) {
     res.render('dashboard', {
       content: content,
-      PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY,
-      amount: 2883
+      PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY
     });
   });
 });

@@ -145,6 +145,7 @@ nav {
   max-width: 100%;
   padding-left: .5em;
   padding-right: .5em;
+  margin-top: .5em;
 }
 
 .footer .container {
@@ -221,8 +222,26 @@ nav {
   max-width: 40em;
   height: auto;
   min-height: 78% !important;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .stripe-button-el {
+  width: 100%;
+}
+
+.payment-container .card {
+  width: 18rem;
+}
+
+.radio-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#customButton {
   margin-top: 2em;
+  width: 100%;
 }
