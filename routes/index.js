@@ -50,8 +50,12 @@ router.post('/dashboard', function(req, res) {
     source: token
   });
 
-  res.render('dashboard', {
-    success: `Success! Your order was: ${lessonTier} mandarin lesson ($${amountInCents/100}). Thank you for your purchase.`
+  models.Content.getContent(function(err, content) {
+    res.render('dashboard', {
+      content: content,
+      PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY,
+      success: `Success! Your order was: ${lessonTier} mandarin lesson ($${amountInCents/100}). Thank you for your purchase.`
+    });
   });
 });
 
