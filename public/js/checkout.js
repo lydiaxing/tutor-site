@@ -4,8 +4,7 @@ var handler = StripeCheckout.configure({
   token: function(token) {
     $("#stripeToken").val(token.id);
     $("#stripeEmail").val(token.email);
-    $("#amountInCents").val(Math.floor($("#amountInDollars").val() * 100));
-    $("#myForm").submit();
+    $("#paymentForm").submit();
   }
 });
 

@@ -24,14 +24,34 @@ router.get('/dashboard', function(req, res) {
   });
 });
 
-router.post('/checkout', function(req, res) {
-  const token = request.body.stripeToken;
+router.post('/dashboard', function(req, res) {
+  var token = req.body.stripeToken;
+  var amountInCents = 4000;
 
-  stripe.customers.create({email: req.user.username, source: token}).then(function(customer) {
-    // YOUR CODE: Save the customer ID and other info in a database for later.
-    return stripe.charges.create({amount: 4000, description: 'Example charge', currency: "usd", customer: customer.id});
-  }).then(function() {
-    res.render('dashboard');
+  var lessonTier = req.body.priceSelection;
+  switch (lessonTier) {
+    case "beginner":
+      amountInCents = 4000;
+      break;
+    case "intermediate":
+      amountInCents = 5000;
+      break;
+    case "advanced":
+      amountInCents = 6000;
+      break;
+    default:
+      amountInCents = 4000;
+  }
+
+  const charge = stripe.charges.create({
+    amount: amountInCents,
+    currency: 'usd',
+    description: 'Mandarin lesson level: ' + lessonTier,
+    source: token
+  });
+
+  res.render('dashboard', {
+    success: `Success! Your order was: ${lessonTier} mandarin lesson ($${amountInCents/100}). Thank you for your purchase.`
   });
 });
 
@@ -82,7 +102,7 @@ router.get('/contact', function(req, res) {
 });
 
 router.post('/contact', function(req, res) {
-  if(!req.body.subject || !req.body.name || !req.body.email || !req.body.message) {
+  if (!req.body.subject || !req.body.name || !req.body.email || !req.body.message) {
     models.Content.getContent(function(err, content) {
       res.render('contact', {
         content: content,
@@ -91,7 +111,7 @@ router.post('/contact', function(req, res) {
     });
   }
 
-  if(!validator.validate(req.body.email)) {
+  if (!validator.validate(req.body.email)) {
     models.Content.getContent(function(err, content) {
       res.render('contact', {
         content: content,
@@ -112,9 +132,7 @@ router.post('/contact', function(req, res) {
   let mailOptions = {
     to: 'mandarinforprofessionals@gmail.com',
     subject: req.body.subject,
-    text: "message from: " + req.body.name +
-          '\n' + "reply email: " + req.body.email +
-          '\n' + "their message: " + req.body.message
+    text: "message from: " + req.body.name + '\n' + "reply email: " + req.body.email + '\n' + "their message: " + req.body.message
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
@@ -129,7 +147,7 @@ router.post('/contact', function(req, res) {
     models.Content.getContent(function(err, content) {
       res.render('contact', {
         success: "Success! I received your message and will reply as soon as I can to the address " + req.body.email,
-        content: content,
+        content: content
       });
     });
   });

@@ -1,8 +1,13 @@
 <div class="container text-center payment-container">
   <h1>Make A Payment</h1>
+  {{#if success}}
+  <div class="alert alert-success" role="alert" style="max-width: 18rem;">
+    {{success}}
+  </div>
+  {{/if}}
   <div class="card">
     <div class="card-body">
-      <form action="/checkout" method="POST">
+      <form id="paymentForm" method="POST">
         <div class="radio-container">
           <div class="form-check">
             <input class="form-check-input" type="radio" name="priceSelection" value="beginner" checked>
@@ -25,7 +30,6 @@
         </div>
         <input type="hidden" id="stripeToken" name="stripeToken" />
         <input type="hidden" id="stripeEmail" name="stripeEmail" />
-        <input type="hidden" id="amountInCents" name="amountInCents" />
         <input type="button" class="btn btn-primary" id="customButton" value="Purchase lesson">
       </form>
     </div>
