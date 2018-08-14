@@ -222,3 +222,7 @@ nav {
   height: auto;
   min-height: 78% !important;
 }
+
+.stripe-button-el {
+  margin-top: 2em;
+}
