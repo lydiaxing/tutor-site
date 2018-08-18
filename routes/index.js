@@ -47,7 +47,8 @@ router.post('/dashboard', function(req, res) {
     amount: amountInCents,
     currency: 'usd',
     description: 'Mandarin lesson level: ' + lessonTier,
-    source: token
+    source: token,
+    receipt_email: req.body.stripeEmail 
   });
 
   models.Content.getContent(function(err, content) {
