@@ -15,7 +15,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/dashboard', function(req, res) {
-  console.log(req.body);
   models.Content.getContent(function(err, content) {
     res.render('dashboard', {
       content: content,
@@ -27,20 +26,21 @@ router.get('/dashboard', function(req, res) {
 router.post('/dashboard', function(req, res) {
   var token = req.body.stripeToken;
   var amountInCents = 4000;
+  var lessonNumber = req.body.numberOfLessons;
 
   var lessonTier = req.body.priceSelection;
   switch (lessonTier) {
     case "beginner":
-      amountInCents = 4000;
+      amountInCents = 4000 * lessonNumber;
       break;
     case "intermediate":
-      amountInCents = 5000;
+      amountInCents = 5000 * lessonNumber;
       break;
     case "advanced":
-      amountInCents = 6000;
+      amountInCents = 6000 * lessonNumber;
       break;
     default:
-      amountInCents = 4000;
+      amountInCents = 4000 * lessonNumber;
   }
 
   const charge = stripe.charges.create({
@@ -54,7 +54,7 @@ router.post('/dashboard', function(req, res) {
     res.render('dashboard', {
       content: content,
       PUBLISHABLE_KEY: process.env.PUBLISHABLE_KEY,
-      success: `Success! Your order was: ${lessonTier} mandarin lesson ($${amountInCents/100}). Thank you for your purchase.`
+      success: `Success! Your order was: ${lessonNumber} ${lessonTier} mandarin lesson(s) (Total: $${amountInCents/100}). Thank you for your purchase.`
     });
   });
 });

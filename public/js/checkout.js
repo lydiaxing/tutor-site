@@ -11,18 +11,19 @@ var handler = StripeCheckout.configure({
 $('#customButton').on('click', function(e) {
   var amountInCents = 4000;
   var lessonTier = $("input[name=priceSelection]:checked").val();
+  var lessonNumber = $("input[name=numberOfLessons]").val();
   switch (lessonTier) {
     case "beginner":
-      amountInCents = 4000;
+      amountInCents = 4000 * lessonNumber;
       break;
     case "intermediate":
-      amountInCents = 5000;
+      amountInCents = 5000 * lessonNumber;
       break;
     case "advanced":
-      amountInCents = 6000;
+      amountInCents = 6000 * lessonNumber;
       break;
     default:
-      amountInCents = 4000;
+      amountInCents = 4000 * lessonNumber;
   }
   handler.open({
     name: 'Mandarin For Professionals',

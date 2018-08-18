@@ -12,21 +12,27 @@
           <div class="form-check">
             <input class="form-check-input" type="radio" name="priceSelection" value="beginner" checked>
             <label class="form-check-label">
-            Beginner Lesson - $40/hr
-          </label>
+              Beginner Lesson - $40/hr
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="priceSelection" value="intermediate">
             <label class="form-check-label">
-            Intermediate Lesson - $50/hr
-          </label>
+              Intermediate Lesson - $50/hr
+            </label>
           </div>
           <div class="form-check">
             <input class="form-check-input" type="radio" name="priceSelection" value="advanced">
             <label class="form-check-label">
-            Advanced Lesson - $60/hr
-          </label>
+              Advanced Lesson - $60/hr
+            </label>
           </div>
+        </div>
+        <div id="lessonNumberContainer" class="form-check">
+          <label class="form-check-label">
+            # of Lessons:
+          </label>
+          <input type="text" id="numberOfLessons" name="numberOfLessons" value="1"/>
         </div>
         <input type="hidden" id="stripeToken" name="stripeToken" />
         <input type="hidden" id="stripeEmail" name="stripeEmail" />
